@@ -15,8 +15,9 @@ export default MenuPage
 export async function getStaticProps() {
     const res = await fetch("http://localhost:3001/data");
     const data = await res.json();
-    
+
     return {
-        props: { data }
+        props: { data },
+        revalidate: 10,
     }
 }
