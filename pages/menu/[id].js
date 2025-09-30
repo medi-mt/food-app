@@ -1,8 +1,18 @@
+import { useRouter } from "next/router";
+import Details from "../../component/template/details/Details";
 
-function DetailsFood(props) {
-    console.log(props);
+function DetailsFood({ data }) {
+
+    const router = useRouter()
+
+    if (router.isFallback) {
+        return <h2>Loading ...</h2>
+    }
+
     return (
-        <div>DetailsFood</div>
+        <div>
+            <Details {...data} />
+        </div>
     )
 }
 
@@ -30,6 +40,11 @@ export async function getStaticProps(context) {
     const { params } = context
     const res = await fetch(`http://localhost:3001/data/${params.id}`);
     const data = await res.json();
+
+
+    if (!data.id) {
+        return { notFound: true }
+    }
 
     return {
         props: { data },
