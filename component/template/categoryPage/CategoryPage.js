@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./CategoryPage.module.css"
 import { useRouter } from 'next/router'
+import Card from "../../module/card/Card"
 
 
-
-function CategoryPage() {
+function CategoryPage({ data }) {
 
     const [query, setQuery] = useState({ difficulty: "", time: "" })
     const router = useRouter()
@@ -44,7 +44,10 @@ function CategoryPage() {
                         </select>
                         <button onClick={searchHandler}>Search</button>
                     </div>
-
+                    <div className={styles.cards}>
+                        {!data.length && <img src="/images/search.png" />}
+                        {data.map(item => <Card {...item} />)}
+                    </div>
                 </div>
             </div>
         </div>
