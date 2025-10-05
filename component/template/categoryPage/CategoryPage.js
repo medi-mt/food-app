@@ -14,7 +14,17 @@ function CategoryPage({ data }) {
         setQuery({ ...query, [name]: value });
 
     }
+    useEffect(() => {
 
+        const { difficulty, time } = router.query
+
+        if (query.difficulty !== difficulty || query.time !== time) {
+            setQuery({
+                difficulty,
+                time
+            })
+        }
+    }, [])
 
     const searchHandler = () => {
 
@@ -31,13 +41,13 @@ function CategoryPage({ data }) {
                 <h2>Categories</h2>
                 <div className={styles.subContainer}>
                     <div className={styles.select}>
-                        <select onChange={changeHandler} name="difficulty" >
+                        <select value={query.difficulty} onChange={changeHandler} name="difficulty" >
                             <option value="">Difficulty</option>
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
                             <option value="Hard">Hard</option>
                         </select>
-                        <select onChange={changeHandler} name="Time">
+                        <select value={query.time} onChange={changeHandler} name="time">
                             <option value="">Cooking Time</option>
                             <option value="more">More than 30 min</option>
                             <option value="less">Less than 30 min</option>
